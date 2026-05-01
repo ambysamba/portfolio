@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Amby SAMBA</title>
+  <meta name="description" content="Contactez Amby SAMBA — Développement web/mobile, UI/UX, identité visuelle."/>
+  <style>
+    :root{
+      --bg:#66143d; /* foncé */
+      --card:#0b1220;
+      --muted:#eb62a2;
+      --accent:#d6c7b9; /* nude doux */
+      --accent-2:#b8997a;
+      --glass: rgba(255,255,255,0.03);
+      --radius:12px;
+      --container:1100px;
+      --fw-regular: 400;
+      --fw-bold:700;
+      --shadow: 0 6px 18px rgba(2,6,23,0.6);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #e6eef8;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, #071024 0%, var(--bg) 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.35;
+      padding-bottom:60px;
+    }
+    .wrap{max-width:var(--container);margin:0 auto;padding:28px;}
+    header{
+      position:sticky;top:0;background:linear-gradient(180deg, rgba(8,12,20,0.7), rgba(8,12,20,0.35));
+      backdrop-filter: blur(6px); z-index:40; border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    nav{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#06202a;font-weight:800;font-size:18px;
+      box-shadow: var(--shadow);
+    }
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{color:var(--muted);text-decoration:none;font-weight:500;font-size:15px;padding:8px;border-radius:8px}
+    .navlinks a:hover{color:var(--accent);background:var(--glass)}
+    /* Sur la page contact, "Contact" doit ressembler aux autres liens */
+    .navlinks a.cta{
+      background:transparent;
+      color:var(--muted);
+      padding:8px;
+      border-radius:8px;
+      font-weight:500;
+      text-decoration:none;
+    }
+    .navlinks a.cta:hover{color:var(--accent);background:var(--glass)}
+    .navlinks a.cta:active{background:transparent}
+    main{padding:40px 0;}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+    .btn-primary{background:var(--accent);color:#071024}
+    .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:var(--accent);background:transparent}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px}
+    .page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .page-title h1{margin:0;font-size:32px;line-height:1.05}
+    .page-title p{margin:8px 0 0;color:var(--muted)}
+    /* Services */
+    .grid{display:grid;gap:18px}
+    .services{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:24px}
+    .service-item{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);border:1px solid rgba(255,255,255,0.02)}
+    .service-item h4{margin:8px 0 6px}
+    .muted{color:var(--muted);font-size:14px}
+    /* Portfolio */
+    .portfolio{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .proj{
+      position:relative;border-radius:12px;overflow:hidden;min-height:160px;background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
+      display:flex;flex-direction:column;justify-content:flex-end;padding:14px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .proj h5{margin:0 0 6px}
+    .proj p{margin:0;color:var(--muted);font-size:13px}
+    .proj .tags{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
+    /* Skills */
+    .skills{display:flex;flex-wrap:wrap;gap:10px}
+    .skill{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;font-size:13px;color:var(--muted)}
+    /* Testimonials */
+    .testi{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .testi blockquote{margin:0;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);color:var(--muted)}
+    .avatar{width:44px;height:44px;border-radius:8px;background:var(--glass);display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+    /* Contact */
+    form{display:grid;gap:10px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    textarea{min-height:120px;resize:vertical}
+    .row{display:flex;gap:12px}
+    .row > *{flex:1}
+    footer{margin-top:64px;color:var(--muted);text-align:center;padding:18px}
+    /* Responsive */
+    @media (max-width:900px){
+      .testi{grid-template-columns:1fr}
+      nav{padding:10px}
+    }
+    /* small helpers */
+    .small{font-size:13px;color:var(--muted)}
+    .center{display:flex;align-items:center;justify-content:center}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav aria-label="Navigation principale">
+        <div class="brand" aria-hidden="true">
+          <div class="logo">AS</div>
+          <div>
+            <div style="font-weight:800">Amby SAMBA</div>
+            <div class="small">Ingénieure en Informatique SIR</div>
+            <div class="small">PDG Ambytion Global Business</div>
+          </div>
+        </div>
+        <div class="navlinks" role="navigation">
+          <a href="index.html#about">À propos</a>
+          <a href="index.html#services">Services</a>
+          <a href="index.html#portfolio">Portfolio</a>
+          <a href="contact.html" class="cta" aria-current="page">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="page-title" aria-labelledby="contact-title">
+      <div>
+        <h1 id="contact-title">Contact</h1>
+        <p class="muted">Discutons de ton projet — remplis le formulaire ou envoie un email à <strong>ambysamba10@gmail.com</strong></p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="index.html">Retour au portfolio</a>
+        <a class="btn btn-primary" href="mailto:ambysamba10@gmail.com">Envoyer un email</a>
+      </div>
+    </section>
+
+    <section style="margin-top:18px">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:18px">
+        <form id="contactForm" class="card" onsubmit="handleSubmit(event)" novalidate>
+          <div class="row">
+            <input id="name" name="name" type="text" placeholder="Ton nom *" required />
+            <input id="email" name="email" type="email" placeholder="Email *" required />
+          </div>
+          <input id="subject" name="subject" type="text" placeholder="Sujet" />
+          <textarea id="message" name="message" placeholder="Décris ton projet *" required></textarea>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-primary" type="submit">Envoyer</button>
+            <div id="formStatus" class="small muted" aria-live="polite"></div>
+          </div>
+        </form>
+
+        <aside class="card">
+          <h3 style="margin-top:0">Infos</h3>
+          <p class="small muted">
+            <strong>Email :</strong> <a href="mailto:ambysamba10@gmail.com" style="color:var(--accent);text-decoration:none">ambysamba10@gmail.com</a><br>
+            <strong>Téléphone :</strong> <a href="tel:+221761588581" style="color:var(--accent);text-decoration:none">+221 76 158 85 81</a>
+          </p>
+          <h4 style="margin-top:12px">Services rapides</h4>
+          <ul class="small muted">
+            <li>Audit de site (1 jour)</li>
+            <li>Création de logo express</li>
+            <li>Pack e-commerce (7–10 jours)</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div class="small muted">© <span id="year"></span> Amby SAMBA — Développement & Design • <span class="small">Basée au Sénégal</span></div>
+    </footer>
+  </main>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form (dummy, client-side validation)
+    function handleSubmit(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('formStatus');
+
+      if(!name || !email || !message){
+        status.textContent = 'Merci de compléter les champs requis.';
+        return;
+      }
+      // email basic check
+      if(!/^\S+@\S+\.\S+$/.test(email)){
+        status.textContent = 'Email invalide.';
+        return;
+      }
+
+      // Simulate send
+      status.textContent = 'Envoi...';
+      setTimeout(()=>{
+        status.textContent = 'Message envoyé ! Je te réponds sous 48h.';
+        document.getElementById('contactForm').reset();
+      }, 900);
+    }
+  </script>
+</body>
+</html>
