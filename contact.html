@@ -22,26 +22,44 @@
       color: #e6eef8;
     }
     *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     html,body{height:100%;}
     body{
       margin:0;
+      overflow-x:hidden;
       background: linear-gradient(180deg, #071024 0%, var(--bg) 100%);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       line-height:1.35;
       padding-bottom:60px;
     }
-    .wrap{max-width:var(--container);margin:0 auto;padding:28px;}
+    body.menu-open{overflow:hidden;touch-action:none}
+    .wrap{max-width:var(--container);margin:0 auto;padding:28px;padding-left:max(28px, env(safe-area-inset-left));padding-right:max(28px, env(safe-area-inset-right));}
     header{
       position:sticky;top:0;background:linear-gradient(180deg, rgba(8,12,20,0.7), rgba(8,12,20,0.35));
       backdrop-filter: blur(6px); z-index:40; border-bottom:1px solid rgba(255,255,255,0.03);
+      padding-top:env(safe-area-inset-top);
     }
-    nav{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .site-nav{padding:12px 18px;padding-left:max(18px, env(safe-area-inset-left));padding-right:max(18px, env(safe-area-inset-right));}
+    .nav-row{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;min-width:0}
+    .brand > div:last-child{min-width:0}
     .logo{
       width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#06202a;font-weight:800;font-size:18px;
       box-shadow: var(--shadow);
     }
+    .nav-toggle{
+      display:none;flex-shrink:0;align-items:center;justify-content:center;width:44px;height:44px;padding:0;
+      border:1px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.04);color:var(--accent);
+      cursor:pointer;-webkit-tap-highlight-color:transparent;
+    }
+    .nav-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .nav-toggle-bars{display:flex;flex-direction:column;gap:5px;width:22px}
+    .nav-toggle-bars span{display:block;height:2px;background:var(--accent);border-radius:1px}
+    .site-nav.is-open .nav-toggle-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .site-nav.is-open .nav-toggle-bars span:nth-child(2){opacity:0}
+    .site-nav.is-open .nav-toggle-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-toggle-bars span{transition:transform .2s ease, opacity .2s ease}
     .navlinks{display:flex;gap:18px;align-items:center}
     .navlinks a{color:var(--muted);text-decoration:none;font-weight:500;font-size:15px;padding:8px;border-radius:8px}
     .navlinks a:hover{color:var(--accent);background:var(--glass)}
@@ -57,13 +75,15 @@
     .navlinks a.cta:hover{color:var(--accent);background:var(--glass)}
     .navlinks a.cta:active{background:transparent}
     main{padding:40px 0;}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;min-height:44px}
     .btn-primary{background:var(--accent);color:#071024}
     .btn-ghost{border:1px solid rgba(255,255,255,0.06);color:var(--accent);background:transparent}
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px}
     .page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
     .page-title h1{margin:0;font-size:32px;line-height:1.05}
     .page-title p{margin:8px 0 0;color:var(--muted)}
+    .page-title-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .contact-grid{display:grid;grid-template-columns:1fr 380px;gap:18px}
     /* Services */
     .grid{display:grid;gap:18px}
     .services{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:24px}
@@ -89,15 +109,39 @@
     .avatar{width:44px;height:44px;border-radius:8px;background:var(--glass);display:inline-flex;align-items:center;justify-content:center;font-weight:700}
     /* Contact */
     form{display:grid;gap:10px}
-    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    input,textarea{width:100%;max-width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
     textarea{min-height:120px;resize:vertical}
     .row{display:flex;gap:12px}
     .row > *{flex:1}
-    footer{margin-top:64px;color:var(--muted);text-align:center;padding:18px}
+    footer{margin-top:64px;color:var(--muted);text-align:center;padding:18px;padding-bottom:max(18px, env(safe-area-inset-bottom));}
     /* Responsive */
     @media (max-width:900px){
+      .wrap{padding:18px;padding-left:max(18px, env(safe-area-inset-left));padding-right:max(18px, env(safe-area-inset-right));}
+      main{padding:24px 0}
+      .page-title{flex-direction:column;align-items:flex-start}
+      .page-title-actions{width:100%;flex-direction:column}
+      .page-title-actions .btn{width:100%}
+      .contact-grid{grid-template-columns:1fr}
       .testi{grid-template-columns:1fr}
-      nav{padding:10px}
+      input,textarea{font-size:16px}
+    }
+    @media (min-width:769px){
+      .nav-row{flex-wrap:nowrap}
+      .navlinks{flex:0 1 auto;margin-left:auto}
+    }
+    @media (max-width:768px){
+      .nav-row{flex-wrap:wrap}
+      .nav-toggle{display:inline-flex;margin-left:auto}
+      .navlinks{
+        flex:1 1 100%;
+        display:none;flex-direction:column;align-items:stretch;gap:2px;width:100%;
+        padding-top:12px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);
+      }
+      .navlinks a{padding:14px 12px;font-size:16px;min-height:44px;display:flex;align-items:center}
+      .site-nav.is-open .navlinks{display:flex}
+      .brand .small{font-size:12px;line-height:1.25}
+      .site-nav{padding:10px 14px}
+      .row{flex-direction:column}
     }
     /* small helpers */
     .small{font-size:13px;color:var(--muted)}
@@ -107,20 +151,25 @@
 <body>
   <header>
     <div class="wrap">
-      <nav aria-label="Navigation principale">
-        <div class="brand" aria-hidden="true">
-          <div class="logo">AS</div>
-          <div>
-            <div style="font-weight:800">Amby SAMBA</div>
-            <div class="small">Ingénieure en Informatique SIR</div>
-            <div class="small">PDG Ambytion Global Business</div>
+      <nav class="site-nav" id="siteNav" aria-label="Navigation principale">
+        <div class="nav-row">
+          <div class="brand" aria-hidden="true">
+            <div class="logo">AS</div>
+            <div>
+              <div style="font-weight:800">Amby SAMBA</div>
+              <div class="small">Ingénieure en Informatique SIR</div>
+              <div class="small">PDG Ambytion Global Business</div>
+            </div>
           </div>
-        </div>
-        <div class="navlinks" role="navigation">
-          <a href="index.html#about">À propos</a>
-          <a href="index.html#services">Services</a>
-          <a href="index.html#portfolio">Portfolio</a>
-          <a href="contact.html" class="cta" aria-current="page">Contact</a>
+          <button type="button" class="nav-toggle" id="navToggle" aria-controls="mainMenu" aria-expanded="false" aria-label="Ouvrir le menu">
+            <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <div class="navlinks" id="mainMenu" role="navigation">
+            <a href="index.html#about">À propos</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#portfolio">Portfolio</a>
+            <a href="contact.html" class="cta" aria-current="page">Contact</a>
+          </div>
         </div>
       </nav>
     </div>
@@ -132,14 +181,14 @@
         <h1 id="contact-title">Contact</h1>
         <p class="muted">Discutons de ton projet — remplis le formulaire ou envoie un email à <strong>ambysamba10@gmail.com</strong></p>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div class="page-title-actions">
         <a class="btn btn-ghost" href="index.html">Retour au portfolio</a>
         <a class="btn btn-primary" href="mailto:ambysamba10@gmail.com">Envoyer un email</a>
       </div>
     </section>
 
     <section style="margin-top:18px">
-      <div style="display:grid;grid-template-columns:1fr 380px;gap:18px">
+      <div class="contact-grid">
         <form id="contactForm" class="card" onsubmit="handleSubmit(event)" novalidate>
           <div class="row">
             <input id="name" name="name" type="text" placeholder="Ton nom *" required />
@@ -177,6 +226,34 @@
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    (function(){
+      var nav = document.getElementById('siteNav');
+      var btn = document.getElementById('navToggle');
+      var mq = window.matchMedia('(max-width:768px)');
+      function setOpen(open){
+        if(!nav || !btn) return;
+        nav.classList.toggle('is-open', open);
+        document.body.classList.toggle('menu-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      }
+      function close(){ setOpen(false); }
+      if(btn){
+        btn.addEventListener('click', function(){ setOpen(!nav.classList.contains('is-open')); });
+      }
+      nav && nav.querySelectorAll('.navlinks a').forEach(function(a){
+        a.addEventListener('click', function(){ if(mq.matches) close(); });
+      });
+      window.addEventListener('resize', function(){ if(!mq.matches) close(); });
+      document.addEventListener('keydown', function(e){
+        if(e.key !== 'Escape') return;
+        if(nav && nav.classList.contains('is-open')){
+          close();
+        }
+      });
+    })();
 
     // Contact form (dummy, client-side validation)
     function handleSubmit(e){
